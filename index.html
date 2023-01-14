@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="./reset.css" />
+  </head>
+
+  <body>
+	<div>
+    	<div class="header">
+    	  <div class="logo"></div>
+    	  <div class="menu"></div>
+		  <div class="add-button"><a href='#'>add book</a></div>
+    	</div>
+		<!-- content part -->
+    	<div class="content">
+    	  <!-- form  part -->
+    	  <div class="flex-center form-parent form-parent-active">
+    	    <div class="flex-center form form-active">
+			  <div>
+    	      	<form onsubmit="return false">
+    	      	  <div class="title">
+    	      	    <label>title</label>
+    	      	    <input type="text" required />
+    	      	  </div>
+    	      	  <div class="author">
+    	      	    <label>author</label>
+    	      	    <input type="text" />
+    	      	  </div>
+    	      	  <div class="pages">
+    	      	    <label>pages</label>
+    	      	    <input type="text" />
+    	      	  </div>
+    	      	  <div class="read">
+    	      	    <label>read: </label>
+    	      	    <label>yes</label>
+    	      	    <input type="radio" name="read" value="true" />
+    	      	    <label>no</label>
+    	      	    <input type="radio" name="read" value="false" />
+    	      	  </div>
+
+    	      	  <div>
+    	      	    <button>add book</button>
+    	      	  </div>
+    	      	</form>
+			  </div>
+    	    </div>
+    	  </div>
+    	  <!-- end form part -->
+
+    	  <div class="books-grid-parent">
+    	  	<div class="books-grid">
+				<!-- 
+    	    	<div class="individual-book-card">
+				</div>
+				-->
+			</div>
+    	  </div>
+
+    	</div>
+    	<!-- end  content -->
+		<div class="footer">
+    	  <div class="logo"></div>
+    	  <div class="menu"></div>
+    	</div>
+
+	</div>
+  </body>
+
+  <script src="./js.js"></script>
+</html>
