@@ -24,6 +24,15 @@ body > div {
 
 .header {
 	background-color: white;
+	display: flex;
+}
+.logo {
+	height: 100%;
+}
+.logo img {
+	padding: 0.2cm;
+	height: 100%;
+	background-color: #FCF1F1;
 }
 
 
@@ -33,23 +42,20 @@ body > div {
 
 	position: relative;
 	z-index: -9999;
-	height: 0;
-
+	max-height: 0;
+	
 	transition-duration: 0.3s;
 }
 .form-parent-active {
-	height: auto;
 	z-index: 100;
+	max-height: 7cm;
+	transition-duration: 0.3s;
 }
 .form {
 	margin: 0.4cm;
 	background-color: #F0E3CA;
 	border-radius: 0.3cm;
 	position: relative;
-	visibility: none
-}
-.form-active {
-	visibility: auto;
 }
 .form form {
 	margin: 0.4cm;
@@ -64,19 +70,65 @@ body > div {
 .books-grid-parent {
 	height: 100%;
 	width: 100%;
-	background-color: #F0E3CA;
+	background-color: #1A1C20;
+	padding: 0.4cm;
 }
-
 .books-grid {
 	height: 100%;
 	width: 100%;
 	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(2cm, 3cm));
+	grid-template-columns: repeat(auto-fill, minmax(2cm, 5cm));
 	grid-template-rows: repeat(auto-fill, minmax(4cm, 6cm));
+	gap: 0.3cm;
 }
 
-.inndividual-book-card {
-	
+.individual-book-card {	
+	background-color: #FCF1F1;
+	border-radius: 0.3cm;
+	border-width: 0.1cm;
+	border-style: solid;
+	border-color: #F9813A;
+	/*
+	border-top-color: red;
+	border-top-width: 0.3cm;
+	*/
+	transition-duration: 0.2s;
 }
+.individual-book {
+	width: 100%;
+	height: 100%;
+	position: relative;
+}
+/*
+.individual-book:hover {	
+	transform:perspective(10cm) rotateY(90deg) ;
+}
+*/
+.face {
+	margin: 0.5cm;
+	width: 100% - 0.5cm;
+	height: 100% - 0.5cm;
+
+	position: absolute;
+	
+	display: grid;
+	gap: 0.5cm;
+}
+.display-off {
+	display: none;
+}
+.book-card-section {
+	display: grid;
+	grid-template-columns: auto auto;
+	gap: 0.5cm;
+}
+.read div:nth-child(2) {
+	border: solid 0.1cm red;
+}
+
+
+
+
+
 
 
