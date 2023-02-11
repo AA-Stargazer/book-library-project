@@ -1,12 +1,16 @@
 :root {
+	--perspective: 16cm;
+}
 
+body {
+	background-image: url('./images/abstract-g74c46e1c6_1920.png');
+	background-attachment: fixed;
 }
 
 body > div {
 	display: grid;
-	grid-template-rows: 2cm minmax(5cm, 30cm) 3cm;
+	grid-template-rows: 2cm minmax(2cm, auto) 3cm;
 	width: 100%;
-	height: 100%;
 }
 
 
@@ -22,17 +26,48 @@ body > div {
 	align-items: center;
 }
 
-.header {
+.header-parent {
+	height: 100% + 0.1cm;
+	padding: 0.1cm;
+	/*
 	background-color: white;
+	opacity: 0.5;
+	* background is transparent but the not text or other elements inside the div etc!!!
+	*/
+	background-image: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8));
+}
+.header {
+	height: 100%;
 	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }
 .logo {
 	height: 100%;
+	width: 4cm;
+	overflow: hidden;
+	background-color: #FCF1F1;
+	border-radius: 0.3cm;
+	box-shadow: 0 0 0.8cm #1A1C20 inset;
+	/*
+	background-color: black;
+	background-image: url('./images/triangle-g62e1e2737_1280.png');
+	background-size: 100%;
+	*/
+	background-color: rgb(0, 0, 0, 0.1);
+}
+.logo > div {
+	height: 90%;
+	margin: 10%;
+	overflow: hidden;
 }
 .logo img {
+	/*
 	padding: 0.2cm;
-	height: 100%;
-	background-color: #FCF1F1;
+	*/
+	height: 120%;
+	margin-top: 12%;
+	transform: rotateY(180deg);
 }
 
 
@@ -53,9 +88,18 @@ body > div {
 }
 .form {
 	margin: 0.4cm;
-	background-color: #F0E3CA;
-	border-radius: 0.3cm;
 	position: relative;
+	
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 0.2cm; 
+}
+.form > div {
+	border-radius: 0.3cm;
+	background-color: #F0E3CA;
+}
+textarea {
+	display: block;
 }
 .form form {
 	margin: 0.4cm;
@@ -65,16 +109,22 @@ body > div {
 	align-content: center;
 	grid-gap: 0.2cm;
 }
+.form input {
 
+}
+.form > div:nth-of-type(3) {
+	grid-column: 1 / span 3;
+}
+.form > div:nth-of-type(3) button {
+	width: 100%;
+}
 
 .books-grid-parent {
-	height: 100%;
-	width: 100%;
+	width: 100% - 0.4cm;
 	background-color: #1A1C20;
 	padding: 0.4cm;
 }
 .books-grid {
-	height: 100%;
 	width: 100%;
 	display: grid;
 	grid-template-columns: repeat(auto-fill, minmax(2cm, 5cm));
@@ -92,25 +142,33 @@ body > div {
 	border-top-color: red;
 	border-top-width: 0.3cm;
 	*/
-	transition-duration: 0.2s;
+	transition-duration: 0.15s;
+	
+	padding: 0.2cm;
+
+}
+.book-rotate-half {
+	/* perspective should be before rotate! */
+	transform: perspective(var(--perspective)) rotateY(90deg);
+}
+.book-rotate-all  {
+	transform: perspective(var(--perspective)) rotateY(180deg);
 }
 .individual-book {
 	width: 100%;
 	height: 100%;
 	position: relative;
+	display: grid;
 }
-/*
-.individual-book:hover {	
-	transform:perspective(10cm) rotateY(90deg) ;
+.face-parent {
 }
-*/
+.face-parent > div {
+	position: absolute;
+}
 .face {
-	margin: 0.5cm;
 	width: 100% - 0.5cm;
 	height: 100% - 0.5cm;
 
-	position: absolute;
-	
 	display: grid;
 	gap: 0.5cm;
 }
@@ -123,10 +181,41 @@ body > div {
 	gap: 0.5cm;
 }
 .read div:nth-child(2) {
-	border: solid 0.1cm red;
+	/*
+	 border: solid 0.1cm red;
+	 */
+}
+.read div:nth-child(2):hover {
+	cursor: pointer;
+}
+
+.card-buttons-parent {
+	width: 100%;
+	height: 100%;
+	display: grid;
+	align-content: end;
+}
+.card-buttons {
+	display: grid;
+	width: 100%;
+	justify-content: space-between;
+	align-items: center;
+	grid-template-columns: repeat(2, 1fr);
+}
+.card-buttons button {
+	width: 100%;
 }
 
 
+
+.footer {
+	width: 100%;
+}
+.footer .logo {
+	width: 100%;
+}
+.menu {
+}
 
 
 

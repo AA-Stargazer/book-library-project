@@ -1,3 +1,12 @@
+// NOTES
+
+// - 1 - for security, instead of directly using the Book's ID, we can go through the order on the web browser. For example we sent books with IDs [22, 33, 44, 55], but in the browser, as seen in order, we can give secondary IDs to the book cards like [1, 2, 3, 4]. We can store the primary IDs in the javascript file instead of directly showing in DOM. This would eliminate most of the scrapers I guess (despite generating random strings instead of class names etc...). But I like it too, sometimes ok to let the scrapers scrape I guess... Also at the moment, it's ok to just directly passing the IDs I guess. I have some ideas to break most of the scrapers, or make their job very hard. But I won't try such thing at the moment. There is also services like cloudflare etc without needing to play with DOM... Anyway
+
+
+// I guess it's ok to have some links here:
+// https://www.w3schools.com/jsref/met_element_remove.asp
+
+
 // --------------------------------------------------------------------------------
 //
 // ----------------------------------- global var/list etc to reaach ------------------------------------
@@ -26,6 +35,8 @@ let booksGridParent = document.querySelector('.books-grid-parent');
 let booksGrid = booksGridParent.querySelector('.books-grid');
 let individualBookElements = booksGrid.querySelectorAll('.individual-book-card');
 
+let individualBookCardTransitionDuration = 150;
+
 
 // --------------------------------------------------------------------------------
 //
@@ -37,9 +48,7 @@ addBookButton.addEventListener('click', () => {
 		bookFormParent.classList.add('form-parent-active');
 	} else {
 		index = plist.findIndex((element) => element == 'form-parent-active');
-		a = plist.slice(0, index);
-		b = Array.from(plist.slice(index + 1));
-		bookFormParent.classList = Array.from(a).concat(b).join(' ');
+		bookFormParent.classList = removeIndexFromArray(plist, index).join(' ');
 	}
 });
 
@@ -53,13 +62,24 @@ let lastElement = null;
 booksGridParent.addEventListener('mousemove', (event) => {
 	let bookCard = event.target.closest('.individual-book-card');
 	if (bookCard != lastElement && bookCard != null) {
-		if (lastElement != null) lastElement.style.backgroundColor = 'white';
-		bookCard.style.backgroundColor = 'red';
+		// if (lastElement != null) lastElement.style.backgroundColor = 'white';
+		// bookCard.style.backgroundColor = 'red';
 		lastElement = bookCard;
 	}
 	else if (bookCard == null && lastElement != null) {
-		lastElement.style.backgroundColor = 'white';
+		// lastElement.style.backgroundColor = 'white';
 		lastElement = null;
+	}
+});
+booksGridParent.addEventListener('click', (event) => {
+	let bookCard = event.target.closest('.individual-book-card');
+	let bookCardInfoButton = event.target.closest('.short-info-button');
+	let bookCardRemoveButton = event.target.closest('.remove-button');
+	if (bookCardInfoButton != null) {
+		handleRotation(bookCard);
+	}
+	else if (bookCardRemoveButton != null) {
+		removeBookByCard(bookCard);
 	}
 });
 
@@ -80,12 +100,14 @@ booksGridParent.addEventListener('mousemove', (event) => {
 // ----------------------------------- functions to use as constructors ------------------------------------
 
 
-function Book(title, author, pages, read, readBoolean=undefined) {
+function Book(title, author, pages, read, readBoolean=undefined, bookID=null) {
 	this.title = title;
 	this.author = author;
 	this.pages = pages;
 	this.read = read;
-	this.readBoolean = readBoolean;
+	this.readBoolean = read == 'true' ? true : false;
+
+	this.bookID = createBookID();
 }
 Book.prototype.info = function() {
 	let tmp_str = `${this.title} by ${this.author}, ${this.pages} pages, `;
@@ -97,23 +119,7 @@ Book.prototype.info = function() {
 
 // -------------------------------------------------------------------------------------
 //
-// ----------------------------------- functions  ------------------------------------------
-
-function addBookToLibrary () {
-	let title = bookForm.querySelector('.form-title input').value;
-	let author = bookForm.querySelector('.form-author input').value;
-	let pages = bookForm.querySelector('.form-pages input').value;
-	let read = bookForm.querySelector('.form-read input:checked').value;
-	let readBoolean = read == 'true' ? true : false;
-
-	let newBook = new Book(title, author, pages, read, readBoolean=readBoolean);
-	bookLibrary.push(newBook);
-	
-	let bookCard = BookCard(newBook);
-	addBookCard(bookCard);
-	
-	// emptyForm();
-}
+// ----------------------------------- DOM based functions  ----------------------------
 
 
 function emptyForm() {
@@ -124,13 +130,12 @@ function emptyForm() {
 	});
 }
 
-let a = undefined;
 function BookCard (book) {	
 	let individualBookCardParent = document.createElement('div');
-	individualBookCardParent.classList.add('individual-book-card', 'flex-center');
+	individualBookCardParent.classList.add('individual-book-card', 'flex-center', `book-id-${book.bookID}`);
 	let individualBookCard = document.createElement('div');	
 	individualBookCard.classList.add('individual-book');
-	
+
 
 	let face;
 	face = document.createElement('div');
@@ -153,7 +158,6 @@ function BookCard (book) {
 	let bookButtonsElement = bookButtons();
 	individualBookCard.insertAdjacentElement('beforeend', bookButtonsElement);
 
-
 	individualBookCardParent.insertAdjacentElement('beforeend', individualBookCard);
 
 	return individualBookCardParent;
@@ -172,8 +176,8 @@ function bookCardSection (book, attribute) {
 	sectionParent.appendChild(keyParent);
 
 	let valueParent = document.createElement('div');
+	valueParent.classList.add('flex-center');
 	let value = document.createElement('p');
-	value.classList.add('flex-center');
 	value.innerText = book[attribute];
 	valueParent.appendChild(value);
 	sectionParent.appendChild(valueParent);
@@ -199,17 +203,16 @@ function bookButtons () {
 	// tmpDiv.appendChild(cardButton2);
 	// cardButtons.appendChild(tmpDiv);
 
-	// cardButtonsParent.appendChild(cardButtons);
-	// return cardButtonsParent;
-	`
-	<div>
-	  <button></button>
+	cardButtons.innerHTML = `
+	<div class="short-info-button">
+	  <button>short info</button>
 	</div>
-	<div>
-	  <button></button>
+	<div class="remove-button">
+	  <button>remove</button>
 	</div>
 	`;
-	
+	cardButtonsParent.appendChild(cardButtons);
+	return cardButtonsParent;
 
 }
 
@@ -217,6 +220,130 @@ function addBookCard (element) {
 	booksGrid.insertAdjacentElement('beforeend', element);	
 }
 
+function removeBookByCard (element) {
+	// let bookID = Array.from(element.classList).find(element => element.includes('book-id'));
+	// let bookID = Array.from(element.classList).find((element) => element.includes('book-id'));
+	// let bookID = Array.from(element.classList).find(element => {return element.includes('book-id')});
+	let bookIDString = Array.from(element.classList).find(element => element.includes('book-id'))
+	let bookID = parseInt(bookIDString.split('book-id-')[1]);
+	element.remove();
+	removeBookFromLibrary(bookID);
+}
+
+
+// TODO there is css attribute called backface-visibility   .. Check this later !!!!
+function handleRotation (element) {
+	let checkRotate = (element) => element.includes('book-rotate');
+	let checkDisplay = (element) => element.includes('display-off');
+	let nextInnerDiv = element.querySelector('div');
+	if (Array.from(element.classList).some(checkRotate)) { // reverse rotation
+		index = Array.from(element.classList).findIndex(checkRotate);
+		element.classList = removeIndexFromArray(element.classList, index).join(' ');
+		element.classList.add('book-rotate-half');
+		
+		setTimeout(() => {
+			face1 = element.querySelector('.face:nth-of-type(1)');
+			index = Array.from(face1.classList).findIndex(checkDisplay);
+			face1.classList = removeIndexFromArray(face1.classList, index).join(' ');
+			
+			face2 = element.querySelector('.face:nth-of-type(2)');
+			face2.classList.add('display-off');
+			nextInnerDiv.style.transform = '';
+			
+			setTimeout(() => {
+				index = Array.from(element.classList).findIndex(checkRotate);
+				element.classList = removeIndexFromArray(element.classList, index).join(' ');
+			}, 30
+			);
+		}, individualBookCardTransitionDuration
+		);
+	}
+	else {	// rotate 
+		element.classList.add('book-rotate-half');
+
+		
+		setTimeout(() => {
+			// -- 
+			face1 = element.querySelector('.face:nth-of-type(1)');
+			face1.classList.add('display-off');
+			
+			face2 = element.querySelector('.face:nth-of-type(2)');
+			index = Array.from(face2.classList).findIndex(checkDisplay);
+			face2.classList = removeIndexFromArray(face2.classList, index).join(' ');
+			
+			nextInnerDiv.style.transform = 'rotateY(-180deg)';
+			// --
+			
+			setTimeout(() => {
+				index = Array.from(element.classList).findIndex(checkRotate);
+				element.classList = removeIndexFromArray(element.classList, index).join(' ');
+				element.classList.add('book-rotate-all');
+			}, 30
+			);
+
+		}, individualBookCardTransitionDuration
+		);
+	}
+}
+
+
+// ----------------------------------------------------------------------------------
+//
+// --------------------------  non-DOM based functions  -----------------------------
+
+function addBookToLibrary () {
+	let title = bookForm.querySelector('.form-title input').value;
+	let author = bookForm.querySelector('.form-author input').value;
+	let pages = bookForm.querySelector('.form-pages input').value;
+	let read = bookForm.querySelector('.form-read input:checked').value;
+	let readBoolean = read == 'true' ? true : false;
+	// let bookID = Math.floor(Math.random() * 100000);
+
+	let newBook = new Book(title, author, pages, read, readBoolean=readBoolean);
+	bookLibrary.push(newBook);
+	
+	let bookCard = BookCard(newBook);
+	
+	addBookCard(bookCard);
+	
+	// emptyForm();
+}
+
+
+
+function removeIndexFromArray(array, index) {
+	// console.log(array, '\n', index);
+	a = Array.from(array).slice(0, index);
+	b = Array.from(array).slice(index + 1);
+	array = Array.from(a).concat(b);
+	return array;
+}
+
+
+
+function createBookID() {
+	// let _max = 0;
+	// Array.from(bookLibrary).forEach( (item) => {
+	// 	if (item.ID > _max)
+	// 		_max = item.ID;
+	// }
+	// return _max + 1;
+
+	// // later on, if we start to have some database etc, we can easily go through indexes. Abandoning above loop method for things might get very big and running a for loop etc might be a problem. This random one also can get very long too, but chances are a bit lower I guess... Anyway, not a big deal...
+	// // I carried this while loop from inside the constractor Book()
+	let rNum = Math.floor(Math.random() * 100000);
+	while (bookLibrary.findIndex((element) => element.bookID == rNum) != -1)
+		rNum = Math.floor(Math.random() * 100000);
+	return rNum;
+
+}
+
+function removeBookFromLibrary(bookID) {
+	let bookArrayIndex = bookLibrary.findIndex(element => element.bookID == bookID);
+	console.log('bookIndex:    ', bookArrayIndex);
+	bookLibrary = removeIndexFromArray(bookLibrary, bookArrayIndex);
+	// console.log(bookLibrary);
+}
 
 // --------------------------------------------------------------------------------
 //
@@ -225,6 +352,8 @@ theHobbit = new Book('The Hobbit', 'J.R.R. Tolkien', 295, false);
 
 console.log(theHobbit.info());
 
+
+addBookToLibrary();
 
 
 
