@@ -10,6 +10,7 @@
 // --------------------------------------------------------------------------------
 //
 // ----------------------------------- global var/list etc to reaach ------------------------------------
+
 bookLibrary = []
 let bookGeneralSections = ['title', 'author', 'pages', 'read', 'short-info'] // this is like class name for elements and also key for bookGeneralSectionsText
 let bookGeneralSectionsText = {
@@ -17,7 +18,7 @@ let bookGeneralSectionsText = {
 	'author': 'Author: ',
 	'pages': 'Pages: ', 
 	'read': 'Read: ',
-	'short-info': 'Short Info'
+	'short-info': 'Short Info'		// TODO short info is not shown in the card !!!!
 }
 
 
@@ -340,7 +341,7 @@ function createBookID() {
 
 function removeBookFromLibrary(bookID) {
 	let bookArrayIndex = bookLibrary.findIndex(element => element.bookID == bookID);
-	console.log('bookIndex:    ', bookArrayIndex);
+	// console.log('bookIndex:    ', bookArrayIndex);
 	bookLibrary = removeIndexFromArray(bookLibrary, bookArrayIndex);
 	// console.log(bookLibrary);
 }
@@ -348,6 +349,7 @@ function removeBookFromLibrary(bookID) {
 // --------------------------------------------------------------------------------
 //
 // -----------------------------------  ------------------------------------------
+
 theHobbit = new Book('The Hobbit', 'J.R.R. Tolkien', 295, false);
 
 console.log(theHobbit.info());

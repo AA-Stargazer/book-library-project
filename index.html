@@ -2,27 +2,31 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <link rel="stylesheet" href="./style.css" />
     <link rel="stylesheet" href="./reset.css" />
+	<!-- put the reset first, so when you make change in style.css that in contrast to reset.css, it can affect the things !!! -->
+    <link rel="stylesheet" href="./style.css" />
   </head>
 
   <body>
     <div>
       <div class="header-parent">
-		<div class="header">
+		<div class="header-sub-parent flex-center">
+		  <div class="header">
 
-		  <div class="logo flex-center">
-		    <div class="flex-center">
-				<img src="./images/favpng_the-thinker-sculpture-drawing-masterpiece.png">
-				<!-- <img src="./images/favpng_the-thinker-drawing.png"> -->
+		    <div class="logo flex-center">
+		      <div class="flex-center">
+		  		<img src="./images/favpng_the-thinker-sculpture-drawing-masterpiece.png">
+		  		<!-- <img src="./images/favpng_the-thinker-drawing.png"> -->
+		      </div>
 		    </div>
-		  </div>
-          <div class="menu"></div>
-          <div class="add-button"><a href="#">add book</a></div>
+            <div class="menu"></div>
+            <div class="add-button"><a href="#">add book</a></div>
 
+		  </div>
 		</div>
       </div>
-	  <!-- end .header -->
+	  <!-- end .header-parent -->
+
       <!-- content part -->
       <div class="content">
         <!-- form  part -->
@@ -32,30 +36,34 @@
             <div>
               <form onsubmit="return false">
                 <div class="form-title">
-                  <label>title</label>
+                  <label>Title</label>
                   <div>
                     <input type="text" required />
                   </div>
                 </div>
                 <div class="form-author">
-                  <label>author</label>
+                  <label>Author</label>
                   <div>
                     <input type="text" />
                   </div>
                 </div>
                 <div class="form-pages">
-                  <label>pages</label>
+                  <label>Pages</label>
                   <div>
                     <input type="text" />
                   </div>
                 </div>
-                <div class="form-read">
-                  <label>read: </label>
+                <div class="form-read flex-center">
+                  <label>Read</label>
                   <div>
-                    <label>yes</label>
-                    <input type="radio" name="read" value="true" />
-                    <label>no</label>
-                    <input type="radio" name="read" value="false" />
+					<div>
+                      <label>yes:</label>
+                      <input type="radio" name="read" value="true" />
+					</div>
+					<div>
+                      <label>no: </label>
+                      <input type="radio" name="read" value="false" />
+					</div>
                   </div>
                 </div>
               </form>
@@ -64,7 +72,7 @@
 			<div>
               <form onsubmit="return false">
 				<div class="short-info">
-				  <label>short info</label>
+				  <label>Short Info</label>
 				  <textarea></textarea>
 				</div>
 			  </form>
@@ -79,58 +87,13 @@
         <!-- end form part -->
 
         <div class="books-grid-parent">
-          <div class="books-grid">
-            <!-- ---------------------------- I was gonna add another layer to control with js for, for example on hovering, keeping the mouse in the are while rotating (extra parent layer that won't rotate), so rotation don't get interrupted during transition, but I decided to add button anyway. Idk, maybe user would want to copy things etc, but when hover, the card is rotating. So a bit annoying... --> 
+          <div class="books-grid-sub-parent flex-center">
+            <div class="books-grid">
+              <!-- ---------------------------- I was gonna add another layer to control with js for, for example on hovering, keeping the mouse in the are while rotating (extra parent layer that won't rotate), so rotation don't get interrupted during transition, but I decided to add button anyway. Idk, maybe user would want to copy things etc, but when hover, the card is rotating. So a bit annoying... --> 
 
-            <div class="individual-book-card flex-center book-rotate">
-              <div class="individual-book">
-				
-				<div class="face-parent">
-				  <div class="face">
-                    <div class="book-card-section">
-                      <div><p>Title:</p></div>
-                      <div><p>\sadfjl</p></div>
-                    </div>
-                    <div class="book-card-section">
-                      <div><p>Author:</p></div>
-                      <div><p>a;sdklf;askldfj</p></div>
-                    </div>
-                    <div class="book-card-section">
-                      <div><p>Pages:</p></div>
-                      <div><p>;aksdlf;jafdl</p></div>
-                    </div>
-                    <div class="book-card-section">
-                      <div><p>Read:</p></div>
-                      <div><p>false</p></div>
-                    </div>
-				  </div>
-				  <div class="face display-off">
-                    <div class="book-card-section">
-                      <div><p>Short Info</p></div>
-                      <div><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</p></div>
-                    </div>
-				  </div>
-				</div>
-
-				<div class="card-buttons-parent">
-				<!-- I checked some designed, it's better to show the content on top of the card, and other things below... I mean obviously xD. Just not sure if remove button should be next to other button. We can pop up window to ask if the user is sure every time. But if wants to remove multiple books, might be problematic. Idk. So we can add some options etc... idk-->
-				  <div class="card-buttons">
-				  	<div>
-						<button></button>
-				    </div>
-				    <div>
-						<button></button>
-				    </div>
-				  </div>
-				</div>
-
-              </div>
+              <!-- ------------------------ -->
             </div>
-
-
-
-            <!-- ------------------------ -->
-          </div>
+		  </div>
         </div>
         <!-- books part end -->
       </div>
