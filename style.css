@@ -84,7 +84,6 @@ body > div {
 	background-color: #FCF1F1;
 	border-radius: 0.3cm;
 	/*box-shadow: 0 0 0.8cm #1A1C20 inset;*/
-	box-shadow: 0 0 0.8cm rgb(26, 0, 23, 0.8) inset;
 	box-shadow: 0 0 0.8cm rgb(0, 0, 0) inset;
 	/*
 	background-color: black;
@@ -92,6 +91,14 @@ body > div {
 	background-size: 100%;
 	*/
 	background-color: rgb(0, 0, 0, 0.2);
+	transition-duration: 0.2s;
+}
+.logo:hover {
+	box-shadow: 0 0 0.8cm rgb(26, 0, 23, 0.8) inset;
+	cursor: pointer;
+}
+.logo:active {
+	cursor: none;
 }
 .logo > div {
 	height: 90%;
@@ -289,7 +296,11 @@ textarea {
 	 */
 }
 .read div:nth-child(2):hover {
+	user-select: none;
 	cursor: pointer;
+}
+.read div:nth-child(2):active {
+	cursor: none;
 }
 
 .card-buttons-parent {

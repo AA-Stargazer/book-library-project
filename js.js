@@ -76,11 +76,17 @@ booksGridParent.addEventListener('click', (event) => {
 	let bookCard = event.target.closest('.individual-book-card');
 	let bookCardInfoButton = event.target.closest('.short-info-button');
 	let bookCardRemoveButton = event.target.closest('.remove-button');
+	let bookCardReadButton = event.target.closest('.read > div:nth-of-type(2)');
+	console.log(bookCardReadButton);
 	if (bookCardInfoButton != null) {
 		handleRotation(bookCard);
 	}
 	else if (bookCardRemoveButton != null) {
 		removeBookByCard(bookCard);
+	}
+	else if (bookCardReadButton != null) {
+		let p = bookCardReadButton.querySelector('p');
+		updateBookRead(bookCard, p);
 	}
 });
 
@@ -225,8 +231,7 @@ function removeBookByCard (element) {
 	// let bookID = Array.from(element.classList).find(element => element.includes('book-id'));
 	// let bookID = Array.from(element.classList).find((element) => element.includes('book-id'));
 	// let bookID = Array.from(element.classList).find(element => {return element.includes('book-id')});
-	let bookIDString = Array.from(element.classList).find(element => element.includes('book-id'))
-	let bookID = parseInt(bookIDString.split('book-id-')[1]);
+	let bookID = getBookIDFromClassList(element.classList);
 	element.remove();
 	removeBookFromLibrary(bookID);
 }
@@ -287,6 +292,26 @@ function handleRotation (element) {
 	}
 }
 
+function updateBookRead(bookCard, p) {
+	let bookID = getBookIDFromClassList(bookCard.classList);
+	let theBook = getBookFromID(bookID);
+	console.log(theBook);
+	if (p.innerText === 'true')
+	{
+		p.innerText = 'false';
+		theBook.read = 'false';	
+	}
+	else
+	{
+		p.innerText = 'true';
+		theBook.read = 'true';
+	}
+	theBook.readBoolean = theBook.read == 'true' ? true : false;
+	console.log(theBook);
+}
+
+
+
 
 // ----------------------------------------------------------------------------------
 //
@@ -345,6 +370,19 @@ function removeBookFromLibrary(bookID) {
 	bookLibrary = removeIndexFromArray(bookLibrary, bookArrayIndex);
 	// console.log(bookLibrary);
 }
+
+
+function getBookIDFromClassList(classList) {
+	let bookIDString = Array.from(classList).find(element => element.includes('book-id'))
+	let bookID = parseInt(bookIDString.split('book-id-')[1]);
+	return bookID;
+}
+
+function getBookFromID (bookID) {
+	return Array.from(bookLibrary).find(element => element.bookID == bookID);
+}
+
+
 
 // --------------------------------------------------------------------------------
 //
