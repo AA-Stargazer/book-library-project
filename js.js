@@ -12,13 +12,20 @@
 // ----------------------------------- global var/list etc to reaach ------------------------------------
 
 bookLibrary = []
-let bookGeneralSections = ['title', 'author', 'pages', 'read', 'short-info'] // this is like class name for elements and also key for bookGeneralSectionsText
+let bookGeneralSections = ['title', 'author', 'pages', 'read', 'short-info'] // this is like class name for elements and also key for bookGeneralSectionsText // UPDATE for short-info etc., I created this section to key dictionary...
+let bookGeneralSectionsToConstractorKey = {
+	'title': 'title', 
+	'author': 'author',
+	'pages': 'pages', 
+	'read': 'read',
+	'short-info': 'shortInfo'
+}
 let bookGeneralSectionsText = {
 	'title': 'Title: ', 
 	'author': 'Author: ',
 	'pages': 'Pages: ', 
 	'read': 'Read: ',
-	'short-info': 'Short Info'		// TODO short info is not shown in the card !!!!
+	'short-info': 'Short Info'
 }
 
 
@@ -258,7 +265,7 @@ function bookCardSection (book, attribute) {
 	let valueParent = document.createElement('div');
 	valueParent.classList.add('flex-center');
 	let value = document.createElement('p');
-	value.innerText = book[attribute];
+	value.innerText = book[bookGeneralSectionsToConstractorKey[attribute]];
 	valueParent.appendChild(value);
 	sectionParent.appendChild(valueParent);
 	
