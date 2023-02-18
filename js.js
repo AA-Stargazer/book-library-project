@@ -38,6 +38,30 @@ let individualBookElements = booksGrid.querySelectorAll('.individual-book-card')
 
 let individualBookCardTransitionDuration = 150;
 
+// --------------------------------------------------------------------------------
+//
+// ----------------------------------- functions to use as constructors ------------------------------------
+
+
+function Book(title, author, pages, read, shortInfo, readBoolean=undefined, bookID=null) {
+	this.title = title;
+	this.author = author;
+	this.pages = pages;
+	this.read = read;
+	this.readBoolean = read == 'true' ? true : false;
+
+	this.shortInfo = shortInfo;
+
+	this.bookID = createBookID();
+}
+Book.prototype.info = function() {
+	let tmp_str = `${this.title} by ${this.author}, ${this.pages} pages, `;
+	if (this.read) tmp_str = tmp_str + 'not read yet';
+	else tmp_str = tmp_str + 'it\'s read';
+	return tmp_str;
+}
+
+
 
 // --------------------------------------------------------------------------------
 //
@@ -77,7 +101,6 @@ booksGridParent.addEventListener('click', (event) => {
 	let bookCardInfoButton = event.target.closest('.short-info-button');
 	let bookCardRemoveButton = event.target.closest('.remove-button');
 	let bookCardReadButton = event.target.closest('.read > div:nth-of-type(2)');
-	console.log(bookCardReadButton);
 	if (bookCardInfoButton != null) {
 		handleRotation(bookCard);
 	}
@@ -86,7 +109,7 @@ booksGridParent.addEventListener('click', (event) => {
 	}
 	else if (bookCardReadButton != null) {
 		let p = bookCardReadButton.querySelector('p');
-		updateBookRead(bookCard, p);
+		updateBookReadStatus(bookCard, p);
 	}
 });
 
@@ -102,25 +125,75 @@ booksGridParent.addEventListener('click', (event) => {
 // });
 
 
-// --------------------------------------------------------------------------------
+
+// ----------------------------------------------------------------------------------
 //
-// ----------------------------------- functions to use as constructors ------------------------------------
+// --------------------------  non-DOM based functions  -----------------------------
 
+function addBookToLibrary () {
+	let title = bookForm.querySelector('.form-title input').value;
+	let author = bookForm.querySelector('.form-author input').value;
+	let pages = bookForm.querySelector('.form-pages input').value;
+	let read = bookForm.querySelector('.form-read input:checked').value;
+	let readBoolean = read == 'true' ? true : false;
+	// let bookID = Math.floor(Math.random() * 100000);
+	let shortInfo = bookForm.querySelector('.short-info textarea').value;
 
-function Book(title, author, pages, read, readBoolean=undefined, bookID=null) {
-	this.title = title;
-	this.author = author;
-	this.pages = pages;
-	this.read = read;
-	this.readBoolean = read == 'true' ? true : false;
-
-	this.bookID = createBookID();
+	let newBook = new Book(title, author, pages, read, shortInfo, readBoolean=readBoolean);
+	bookLibrary.push(newBook);
+	
+	let bookCard = BookCard(newBook);
+	
+	addBookCard(bookCard);
+	
+	// emptyForm();
 }
-Book.prototype.info = function() {
-	let tmp_str = `${this.title} by ${this.author}, ${this.pages} pages, `;
-	if (this.read) tmp_str = tmp_str + 'not read yet';
-	else tmp_str = tmp_str + 'it\'s read';
-	return tmp_str;
+
+
+
+function removeIndexFromArray(array, index) {
+	// console.log(array, '\n', index);
+	a = Array.from(array).slice(0, index);
+	b = Array.from(array).slice(index + 1);
+	array = Array.from(a).concat(b);
+	return array;
+}
+
+
+
+function createBookID() {
+	// let _max = 0;
+	// Array.from(bookLibrary).forEach( (item) => {
+	// 	if (item.ID > _max)
+	// 		_max = item.ID;
+	// }
+	// return _max + 1;
+
+	// // later on, if we start to have some database etc, we can easily go through indexes. Abandoning above loop method for things might get very big and running a for loop etc might be a problem. This random one also can get very long too, but chances are a bit lower I guess... Anyway, not a big deal...
+	// // I carried this while loop from inside the constractor Book()
+	let rNum = Math.floor(Math.random() * 100000);
+	while (bookLibrary.findIndex((element) => element.bookID == rNum) != -1)
+		rNum = Math.floor(Math.random() * 100000);
+	return rNum;
+
+}
+
+function removeBookFromLibrary(bookID) {
+	let bookArrayIndex = bookLibrary.findIndex(element => element.bookID == bookID);
+	// console.log('bookIndex:    ', bookArrayIndex);
+	bookLibrary = removeIndexFromArray(bookLibrary, bookArrayIndex);
+	// console.log(bookLibrary);
+}
+
+
+function getBookIDFromClassList(classList) {
+	let bookIDString = Array.from(classList).find(element => element.includes('book-id'))
+	let bookID = parseInt(bookIDString.split('book-id-')[1]);
+	return bookID;
+}
+
+function getBookFromID (bookID) {
+	return Array.from(bookLibrary).find(element => element.bookID == bookID);
 }
 
 
@@ -292,10 +365,9 @@ function handleRotation (element) {
 	}
 }
 
-function updateBookRead(bookCard, p) {
+function updateBookReadStatus(bookCard, p) {
 	let bookID = getBookIDFromClassList(bookCard.classList);
 	let theBook = getBookFromID(bookID);
-	console.log(theBook);
 	if (p.innerText === 'true')
 	{
 		p.innerText = 'false';
@@ -307,80 +379,9 @@ function updateBookRead(bookCard, p) {
 		theBook.read = 'true';
 	}
 	theBook.readBoolean = theBook.read == 'true' ? true : false;
-	console.log(theBook);
 }
 
 
-
-
-// ----------------------------------------------------------------------------------
-//
-// --------------------------  non-DOM based functions  -----------------------------
-
-function addBookToLibrary () {
-	let title = bookForm.querySelector('.form-title input').value;
-	let author = bookForm.querySelector('.form-author input').value;
-	let pages = bookForm.querySelector('.form-pages input').value;
-	let read = bookForm.querySelector('.form-read input:checked').value;
-	let readBoolean = read == 'true' ? true : false;
-	// let bookID = Math.floor(Math.random() * 100000);
-
-	let newBook = new Book(title, author, pages, read, readBoolean=readBoolean);
-	bookLibrary.push(newBook);
-	
-	let bookCard = BookCard(newBook);
-	
-	addBookCard(bookCard);
-	
-	// emptyForm();
-}
-
-
-
-function removeIndexFromArray(array, index) {
-	// console.log(array, '\n', index);
-	a = Array.from(array).slice(0, index);
-	b = Array.from(array).slice(index + 1);
-	array = Array.from(a).concat(b);
-	return array;
-}
-
-
-
-function createBookID() {
-	// let _max = 0;
-	// Array.from(bookLibrary).forEach( (item) => {
-	// 	if (item.ID > _max)
-	// 		_max = item.ID;
-	// }
-	// return _max + 1;
-
-	// // later on, if we start to have some database etc, we can easily go through indexes. Abandoning above loop method for things might get very big and running a for loop etc might be a problem. This random one also can get very long too, but chances are a bit lower I guess... Anyway, not a big deal...
-	// // I carried this while loop from inside the constractor Book()
-	let rNum = Math.floor(Math.random() * 100000);
-	while (bookLibrary.findIndex((element) => element.bookID == rNum) != -1)
-		rNum = Math.floor(Math.random() * 100000);
-	return rNum;
-
-}
-
-function removeBookFromLibrary(bookID) {
-	let bookArrayIndex = bookLibrary.findIndex(element => element.bookID == bookID);
-	// console.log('bookIndex:    ', bookArrayIndex);
-	bookLibrary = removeIndexFromArray(bookLibrary, bookArrayIndex);
-	// console.log(bookLibrary);
-}
-
-
-function getBookIDFromClassList(classList) {
-	let bookIDString = Array.from(classList).find(element => element.includes('book-id'))
-	let bookID = parseInt(bookIDString.split('book-id-')[1]);
-	return bookID;
-}
-
-function getBookFromID (bookID) {
-	return Array.from(bookLibrary).find(element => element.bookID == bookID);
-}
 
 
 
