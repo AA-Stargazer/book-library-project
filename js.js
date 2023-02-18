@@ -355,7 +355,8 @@ theHobbit = new Book('The Hobbit', 'J.R.R. Tolkien', 295, false);
 console.log(theHobbit.info());
 
 
-addBookToLibrary();
+for (let i = 0; i < 8; i++)
+	addBookToLibrary();
 
 
 

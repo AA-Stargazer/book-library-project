@@ -229,12 +229,12 @@ textarea {
 .books-grid {
 	width: 100%;
 	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(2cm, 5cm));
-	grid-template-rows: repeat(auto-fill, minmax(4cm, 6cm));
-	gap: 0.3cm;
+	grid-template-columns: repeat(auto-fill, minmax(5cm, 1fr));
+	gap: 0.4cm;
 }
 
 .individual-book-card {	
+	height: 6cm;
 	background-color: #FCF1F1;
 	border-radius: 0.3cm;
 	border-width: 0.1cm;
