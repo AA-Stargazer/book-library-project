@@ -8,6 +8,7 @@
 
 :root {
 	--perspective: 16cm;
+	--book-grid-background: rgb(2, 1, 7, 0.9);
 }
 
 @font-face {
@@ -201,7 +202,7 @@ textarea {
 
 
 .content {
-	background-color: rgb(2, 1, 7, 0.9);
+	background-color: var(--book-grid-background);
 }
 .books-grid-parent {
 	width: 100%;
@@ -214,7 +215,6 @@ textarea {
 }
 .books-grid-sub-parent {
 	width: 100% - 0.4cm;
-	height: 100%;
 	/*background-color: #1A1C20;*/
 	/* background-color: rgb(3, 0, 16, 0.8); /* trying colors... Note: this is also should give the logo background color...*/	
 	background-color: rgb(23, 2, 19);
@@ -223,11 +223,11 @@ textarea {
 	background-color: rgb(4, 0, 24);
 	background-color: rgb(2, 2, 7, 0.97);
 	background-color: rgb(2, 1, 7, 0.9);
+	background-color: var(--book-grid-background);
 	padding: 0.4cm;
 }
 .books-grid {
 	width: 100%;
-	height: 100%;
 	display: grid;
 	grid-template-columns: repeat(auto-fill, minmax(2cm, 5cm));
 	grid-template-rows: repeat(auto-fill, minmax(4cm, 6cm));
