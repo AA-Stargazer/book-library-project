@@ -126,42 +126,6 @@ body > div {
 }
 
 
-
-/* ================================================================================================================================================================================================================ */
-/* NOTE, no matter what I try, in the compatibality table of @property https://developer.mozilla.org/en-US/docs/Web/CSS/@property#browser_compatibility   ,    firefox is not supports it. Bad news, gotta try something else, good news, if what we try works in firefox, it's probably safer to think that it will work in more browsers? 
- * btw, some extra links to where we started: 
- * https://stackoverflow.com/questions/65111664/how-do-i-animate-a-css-gradient-stop-with-a-smooth-transition-to-transparent
- * 
- * 
- */
-/*
-@property --bg-angle {
-    syntax: '<angle>';
-    inherits: false;
-    initial-value: 0deg;
-}
-@keyframes bg-spin {
-	0% {
-		var(--bg-angle): 0deg;
-	}
-  	100% {
-		var(--bg-angle): 360deg;
-  	}
-}
-*/
-
-/* ----- */
-/*
-@keyframes bg-spin {
-	0% {
-		transform: rotate(0deg);
-	}
-	100% {
-		transform: rotate(360deg);
-	}
-}
-*/
-
 @keyframes bg-spin {
 	/* NOTE: to make it smooth enough, gotta find the exact angles etc, and might need javascript for it, and I'm not sure about it. 
 	 * Though, as the width and height is mostly certain, maybe could do somethings. But I spent some time with this, and leaving this here....
@@ -206,7 +170,6 @@ body > div {
 	overflow: hidden;
 }
 .free-spin-background {
-	/* NOTE: this position absolute goes until seeing first positioned parent. If you remove position attribute from .add-button-parent (which is just above parent to this, also where we want to expand this up to...), it will go to the next  (upper parent/bigger parent, next parent that containing this) parent which it's position attribute is set. I'm writing to keep this in mind. This is my 2nd time with this problem I guess... */
 	width: 100vmin;
 	height: 100vmin;
 	border-radius: 50%;
@@ -248,49 +211,6 @@ body > div {
 .add-button a:hover {
 	cursor: default;
 }
-/* NOTE NOTE NOTE: 
- * https://codepen.io/mfortryg/pen/BaOoJQP
- * ok, aaaa, we can't change the background-image's corner radius etc. 
- * We can only affect by the boxe's corner which the background is attched to and backkkground's corners are exceeding the box. 
- * So it's seen as also background-image has corner-radius. 
- * To create this .box (taken from https://freefrontend.com/css-border-animations/  ->  https://codepen.io/shshaw/pen/RwJwJJx) border style (turning animation is normal), I'll create 2 boxes and conic-gradient to the parent one (which will be bigger than child, like adding padding to parent, or adding margin to child, or  just adjusting the weight/height of the child etc...), and will control things through things like this....
- */
-.box {
-  --border-size: 3px;
-  --border-angle: 0turn;
-  /* tryna understand it....
-   * first written gif/img/conic-gradient etc has higher z-index, shown more in front for background-image
-   * * first to last, most front to most background
-   */
-  background-image: conic-gradient(from var(--border-angle), black, black),
-  					conic-gradient(from var(--border-angle), transparent 20%, #08f, #f03);
-  background-size: 	calc(100% - (var(--border-size) * 2))
-      				calc(100% - (var(--border-size) * 2)),
-    				cover;
-  background-position: center center;
-  background-repeat: no-repeat;
-
-  animation: bg-spin 3s linear infinite;
-  @keyframes bg-spin {
-    to {
-      --border-angle: 1turn;
-    }
-  }
-
-  &:hover {
-    animation-play-state: paused;
-  }
-}
-@property --border-angle {
-  syntax: "<angle>";
-  inherits: true;
-  initial-value: 0turn;
-}
-
-
-/* ================================================================================================================================================================================================================ */
-
-
 
 
 .form-parent {
