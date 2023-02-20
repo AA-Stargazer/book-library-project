@@ -17,6 +17,7 @@
 	--book-grid-background: rgb(2, 1, 7, 0.9);
 	--logo-border-radius: 0.3cm;
 	--bg-angle: 0deg;
+	--rotate-diff: 15deg;
 }
 
 @font-face {
@@ -148,13 +149,47 @@ body > div {
   	}
 }
 */
+
+/* ----- */
+/*
 @keyframes bg-spin {
 	0% {
 		transform: rotate(0deg);
 	}
-  	100% {
+	100% {
 		transform: rotate(360deg);
+	}
+}
+*/
+
+@keyframes bg-spin {
+	0% {
+		transform: rotate(0deg);
+	}
+	12.5% {
+		transform: rotate(calc(45deg + var(--rotate-diff)));
+	}
+	25% {
+		transform: rotate(90deg);
+	}
+	37.5% {
+		transform: rotate(calc(135deg - var(--rotate-diff)));
+	}
+  	50% {
+		transform: rotate(180deg);
   	}
+	62.5% {
+		transform: rotate(calc(225deg + var(--rotate-diff)));
+	}
+	75% {
+		transform: rotate(270deg);
+	}
+	87.5% {
+		transform: rotate(calc(315deg - var(--rotate-diff)));
+	}
+	100% {
+		transform: rotate(360deg);
+	}
 }
 .add-button-parent {
 	/*
