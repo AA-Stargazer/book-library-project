@@ -294,7 +294,18 @@ body > div {
 }
 .form div:nth-child(2n) form { /* short info */
 }
-.form > div > input { /* "read" radio input buttons not included... */
+.form form > div > div > input { /* "read" radio input buttons not included... */
+	border-width: 0;
+	height: 0.5cm;
+	width: 100%;
+	border-radius: 0.1cm;
+	padding: 0.1cm;
+	font-size: 0.34cm;
+}
+form > div {
+	display: grid;
+	grid-template-rows: auto auto;
+	gap: 0.07cm;
 }
 form .form-read { /* has flex-center */
 	flex-direction: column;
@@ -320,14 +331,27 @@ textarea {
 	width: calc(100% - 0.2cm);
 	height: 100%;
 	resize: none;
+	border-radius: 0.1cm;
+	border: none;
+	padding: 0.1cm;
 }
 .form > div:nth-of-type(3) {
 	grid-column: 1 / span 3;
+	width: calc(100% - 0.4cm);
+	border-radius: 0.4cm;
+	padding: 0.1cm;
 }
 .form > div:nth-of-type(3) button {
 	width: 100%;
+	height: calc(100% + 0.2cm);
+	font-size: 0.34cm;
+	font-weight: 800;
+	border: none;
+	background: none;
 }
-
+.form > div:nth-of-type(3) button:hover {
+	background: none;
+}
 
 .content-parent {
 	background-image: url('./images/abstract-g74c46e1c6_1920.png');
