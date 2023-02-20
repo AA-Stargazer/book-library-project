@@ -163,6 +163,9 @@ body > div {
 */
 
 @keyframes bg-spin {
+	/* NOTE: to make it smooth enough, gotta find the exact angles etc, and might need javascript for it, and I'm not sure about it. 
+	 * Though, as the width and height is mostly certain, maybe could do somethings. But I spent some time with this, and leaving this here....
+	 */
 	0% {
 		transform: rotate(0deg);
 	}
