@@ -126,19 +126,36 @@ body > div {
 
 
 /* ================================================================================================================================================================================================================ */
-
+/* NOTE, no matter what I try, in the compatibality table of @property https://developer.mozilla.org/en-US/docs/Web/CSS/@property#browser_compatibility   ,    firefox is not supports it. Bad news, gotta try something else, good news, if what we try works in firefox, it's probably safer to think that it will work in more browsers? */
+@property --bg-angle {
+    syntax: '<angle>';
+    inherits: false;
+    initial-value: 0deg;
+}
+@keyframes bg-spin {
+	0% {
+		--bg-angle: 0deg;
+	}
+  	100% {
+		--bg-angle: 360deg;
+  	}
+}
 .add-button-parent {
 	height: calc(100% - 0.4cm);
 	width: 4cm;	
 	border-radius: var(--logo-border-radius);
-	background-image: conic-gradient(from 0, transparent 20%, #0046ff, #ff0021);
+	background-image: conic-gradient(from var(--bg-angle) at 50% 50%, transparent 20%, #0046ff, #ff0021);
+	will-change: background-image;
 	background-size: 100%, cover;
 	background-repeat: no-repeat;
+	
+	animation: bg-spin 3s linear infinite; 
 }
+
 .add-button-sub-parent {
 	height: calc(100% - 0.2cm);
 	width: calc(100% - 0.2cm);
-		
+
 	background-image: url('./images/abstract-g74c46e1c6_1920.png');
 	background-size: auto;
 	background-attachment: fixed;
