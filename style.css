@@ -127,7 +127,12 @@ body > div {
 
 
 /* ================================================================================================================================================================================================================ */
-/* NOTE, no matter what I try, in the compatibality table of @property https://developer.mozilla.org/en-US/docs/Web/CSS/@property#browser_compatibility   ,    firefox is not supports it. Bad news, gotta try something else, good news, if what we try works in firefox, it's probably safer to think that it will work in more browsers? */
+/* NOTE, no matter what I try, in the compatibality table of @property https://developer.mozilla.org/en-US/docs/Web/CSS/@property#browser_compatibility   ,    firefox is not supports it. Bad news, gotta try something else, good news, if what we try works in firefox, it's probably safer to think that it will work in more browsers? 
+ * btw, some extra links to where we started: 
+ * https://stackoverflow.com/questions/65111664/how-do-i-animate-a-css-gradient-stop-with-a-smooth-transition-to-transparent
+ * 
+ * 
+ */
 /*
 @property --bg-angle {
     syntax: '<angle>';
@@ -145,10 +150,10 @@ body > div {
 */
 @keyframes bg-spin {
 	0% {
-		translate: rotate(0deg);
+		transform: rotate(0deg);
 	}
   	100% {
-		translate: rotate(360deg);
+		transform: rotate(360deg);
   	}
 }
 .add-button-parent {
@@ -167,6 +172,8 @@ body > div {
 	width: 100%;
 	height: 100%;
 	position: absolute;
+
+	background-image: conic-gradient(from 0 at 50% 50%, transparent 20%, #0046ff, #ff0021);
 
 	animation: bg-spin 3s linear infinite; 
 }
