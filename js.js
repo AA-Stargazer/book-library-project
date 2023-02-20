@@ -414,10 +414,14 @@ function updateBookReadStatus(bookCard, p) {
 //
 // -----------------------------------  ------------------------------------------
 
-theHobbit = new Book('The Hobbit', 'J.R.R. Tolkien', 295, false);
-
+theHobbit = new Book('The Hobbit', 'J.R.R. Tolkien', 295, false, '');
+bookLibrary.push(theHobbit);
 console.log(theHobbit.info());
 
+Array.from(bookLibrary).forEach((item) => {
+	let card = BookCard(theHobbit);	
+	addBookCard(card);
+});
 
 for (let i = 0; i < 8; i++)
 	addBookToLibrary();
