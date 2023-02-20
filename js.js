@@ -28,6 +28,7 @@ let bookGeneralSectionsText = {
 	'short-info': 'Short Info'
 }
 
+let formActive = false; // TODO  created for harmony between addBookButton and Form, but when started the form closed, no action needed I guess... cuz adjusting style of the button by checking the classList of the form
 
 // --------------------------------------------------------------------------------
 //
@@ -95,10 +96,12 @@ addButtonSubParent.addEventListener('click', () => {
 	if (plist.lastIndexOf('form-parent-active') == -1) {
 		bookFormParent.classList.add('form-parent-active');
 		addBookButton.querySelector('a').style.color = 'rgb(255, 255, 255, 0.8';
+		addBookButton.querySelector('a').style.textShadow = '0 0 0.05cm rgb(255, 255, 255, 0.5)';
 	} else {
 		index = plist.findIndex((element) => element == 'form-parent-active');
 		bookFormParent.classList = removeIndexFromArray(plist, index).join(' ');
 		addBookButton.querySelector('a').style.color = 'rgb(255, 255, 255, 0.6';
+		addBookButton.querySelector('a').style.textShadow = 'none';
 	}
 });
 

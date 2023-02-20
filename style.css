@@ -279,6 +279,7 @@ body > div {
 .form > div {
 	border-radius: 0.3cm;
 	background-color: #F0E3CA;
+	box-shadow: 0 0 0.3cm rgb(2, 1, 7, 0.3);
 }
 .form form { /* except short info */
 	margin: 0.4cm;
@@ -328,29 +329,22 @@ textarea {
 }
 
 
-.content {
-	background-color: var(--book-grid-background);
-}
-.books-grid-parent {
-	width: 100%;
-
-	/* hmm, directly copied from header-parent, looks like working fine in harmony with  others... I added this for I'm adding transparency to the background-color, and form is being seen when should be hidden... */
+.content-parent {
 	background-image: url('./images/abstract-g74c46e1c6_1920.png');
 	background-size: auto;
 	background-attachment: fixed;
 	background-position: top left;
 }
+.content {
+	width: 100%;
+	height: 100%;
+	background-color: var(--book-grid-background);
+}
+.books-grid-parent {
+	width: 100%;
+}
 .books-grid-sub-parent {
 	width: 100% - 0.4cm;
-	/*background-color: #1A1C20;*/
-	/* background-color: rgb(3, 0, 16, 0.8); /* trying colors... Note: this is also should give the logo background color...*/	
-	background-color: rgb(23, 2, 19);
-	background-color: rgb(19, 5, 16);
-	background-color: rgb(11, 4, 10, 0.97);
-	background-color: rgb(4, 0, 24);
-	background-color: rgb(2, 2, 7, 0.97);
-	background-color: rgb(2, 1, 7, 0.9);
-	background-color: var(--book-grid-background);
 	padding: 0.4cm;
 }
 .books-grid {
