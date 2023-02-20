@@ -32,6 +32,9 @@ let bookGeneralSectionsText = {
 // --------------------------------------------------------------------------------
 //
 // ----------------------------------- elements ------------------------------------
+let addButtonParent = document.querySelector('.add-button-parent');
+let freeSpinBackground = document.querySelector('.free-spin-background');
+let addButtonSubParent = document.querySelector('.add-button-sub-parent');
 let addBookButton = document.querySelector('.add-button');
 
 let content = document.querySelector('.content');
@@ -74,13 +77,28 @@ Book.prototype.info = function() {
 //
 // ------------------------- element - asigning - using...  -----------------------
 
-addBookButton.addEventListener('click', () => {
+
+// TODO Idk I'll spend more time on this, but as an idea, we can control some things with javascript. Like, for example, when mouseout, animation can continue from where it was. (can change conic-gradient(from ${}, ..., ...))
+addButtonSubParent.addEventListener('mousemove', () => {
+	// freeSpinBackground.style.animation = 'bg-spin-active 0.5s linear infinite';
+	// freeSpinBackground.style.backgroundImage = 'conic-gradient(from 0 at 50% 50%, transparent 30%, rgb(0, 0, 0, 0.5)';
+	freeSpinBackground.style.animationPlayState = 'paused';
+});
+addButtonSubParent.addEventListener('mouseout', () => {
+	// freeSpinBackground.style.animation = 'bg-spin 3s linear infinite';
+	// freeSpinBackground.style.backgroundImage = 'conic-gradient(from 0 at 50% 50%, transparent 20%, #0046ff, #ff0021)';
+	freeSpinBackground.style.animationPlayState = 'running';
+});
+
+addButtonSubParent.addEventListener('click', () => {
 	let plist = Array.from(bookFormParent.classList);
 	if (plist.lastIndexOf('form-parent-active') == -1) {
 		bookFormParent.classList.add('form-parent-active');
+		addBookButton.querySelector('a').style.color = 'rgb(255, 255, 255, 0.8';
 	} else {
 		index = plist.findIndex((element) => element == 'form-parent-active');
 		bookFormParent.classList = removeIndexFromArray(plist, index).join(' ');
+		addBookButton.querySelector('a').style.color = 'rgb(255, 255, 255, 0.6';
 	}
 });
 
