@@ -165,7 +165,7 @@ body > div {
 	width: 4cm;	
 	border-radius: var(--logo-border-radius);
 	background-color: transparent;
-	
+	overflow: hidden;
 }
 .free-spin-background {
 	/* NOTE: this position absolute goes until seeing first positioned parent. If you remove position attribute from .add-button-parent (which is just above parent to this, also where we want to expand this up to...), it will go to the next  (upper parent/bigger parent, next parent that containing this) parent which it's position attribute is set. I'm writing to keep this in mind. This is my 2nd time with this problem I guess... */
