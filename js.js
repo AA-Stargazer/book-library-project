@@ -277,6 +277,7 @@ function bookCardSection (book, attribute) {
 	sectionParent.classList.add(`${attribute}`);
 	
 	let keyParent = document.createElement('div');
+	// keyParent.classList.add('flex-center');
 	let key = document.createElement('p');
 	// key.innerText = attribute[0].toUpperCase() + attribute.slice(1) + ':';
 	key.innerText = bookGeneralSectionsText[attribute];
@@ -285,6 +286,11 @@ function bookCardSection (book, attribute) {
 
 	let valueParent = document.createElement('div');
 	valueParent.classList.add('flex-center');
+	if (attribute == 'read')
+		if (book.read)
+			valueParent.classList.add('true');
+		else
+			valueParent.classList.add('false');
 	let value = document.createElement('p');
 	value.innerText = book[bookGeneralSectionsToConstractorKey[attribute]];
 	valueParent.appendChild(value);
@@ -394,17 +400,20 @@ function handleRotation (element) {
 }
 
 function updateBookReadStatus(bookCard, p) {
-	let bookID = getBookIDFromClassList(bookCard.classList);
-	let theBook = getBookFromID(bookID);
-	if (p.innerText === 'true')
+	let bookID = getBookIDFromClassList(bookCard.classList);	
+	let pParent = bookCard.querySelector('.read div:nth-of-type(2)');	
+	let theBook = getBookFromID(bookID);	
+	if (p.innerText === 'true')	
 	{
 		p.innerText = 'false';
 		theBook.read = 'false';	
+		pParent.classList = 'flex-center false';
 	}
 	else
 	{
 		p.innerText = 'true';
 		theBook.read = 'true';
+		pParent.classList = 'flex-center true';
 	}
 	theBook.readBoolean = theBook.read == 'true' ? true : false;
 }

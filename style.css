@@ -423,17 +423,27 @@ textarea {
 }
 .book-card-section {
 	display: grid;
-	grid-template-columns: auto auto;
-	gap: 0.5cm;
+	grid-template-columns: 1fr 1fr; /* with false, or true, width of .read value changing, and when you change from true-false/false-true, it was looking bad. So changed auto auto to 1fr 1fr, so widths are fixed. And works better than trying to adjust with .read etc... */
+	align-items: center;
 
 	word-break: break-all;
+}
+.book-card-section div:nth-of-type(2) {
 	overflow: scroll;
-
+	border-radius: 0.2cm;
+	transition-duration: 0.5cm;
+}
+.true {
+	background-color: rgb(179, 255, 179, 0.5);
+}
+.false {
+	background-color: rgb(255, 179, 179, 0.5);
 }
 .read div:nth-child(2) {
 	/*
 	 border: solid 0.1cm red;
 	 */
+height: 100%;
 }
 .read div:nth-child(2):hover {
 	user-select: none;
@@ -446,7 +456,6 @@ textarea {
 	display: grid;
 	grid-template-columns: auto;
 	grid-template-rows: auto auto;
-	
 }
 
 
@@ -460,8 +469,9 @@ textarea {
 }
 .card-buttons {
 	display: grid;
+	gap: 0.3cm;
 	width: 100%;
-	justify-content: space-between;
+	justify-content: space-around;
 	align-items: center;
 	grid-template-columns: repeat(2, 1fr);
 }
