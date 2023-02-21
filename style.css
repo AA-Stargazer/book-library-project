@@ -343,10 +343,10 @@ textarea {
 	width: calc(100% - 0.4cm);
 	border-radius: 0.4cm;
 	padding: 0.1cm;
-	background-color: rgb(240, 227, 202, 0.5);
+	background-color: rgb(240, 227, 202, 0.8);
 }
 .form > div:nth-of-type(3):hover {
-	background-color: rgb(240, 227, 202, 0.8);
+	background-color: rgb(240, 227, 202, 0.9);
 }
 .form > div:nth-of-type(3):active {
 	background-color: rgb(240, 227, 202, 1);
@@ -443,8 +443,14 @@ textarea {
 .true {
 	background-color: rgb(179, 255, 179, 0.5);
 }
+.true:hover {
+	background-color: rgb(179, 255, 179, 0.6);
+}
 .false {
 	background-color: rgb(255, 179, 179, 0.5);
+}
+.false:hover {
+	background-color: rgb(255, 179, 179, 0.6);
 }
 .read div:nth-child(2) {
 	/*
@@ -484,21 +490,27 @@ height: 100%;
 }
 .card-buttons button {
 	width: 100%;
+	font-size: 0.3cm;
+	color: rgb(255, 255, 255, 0.8);
 	padding: 0.1cm;
 	border-width: 0;
-	background-color: rgb(0, 0, 0, 0.5);
+	background-color: rgb(2, 1, 7, 0.6);
 	border-radius: 0.2cm;
+	font-size: 0.3cm;
 }
 .card-buttons button:hover {
 	cursor: pointer;
-	background-color: rgb(0, 0, 0, 0.6);
+	background-color: rgb(2, 1, 7, 0.7);
 }
 .card-buttons  button:active {
 	cursor: pointer;
-	background-color: rgb(0, 0, 0, 0.7);
+	background-color: rgb(2, 1, 7, 0.73);
 }
 .remove-button button:hover {
 	background-color: rgb(150, 0, 0, 0.5);
+}
+.remove-button button:active {
+	background-color: rgb(200, 0, 0, 0.8);
 }
 
 
