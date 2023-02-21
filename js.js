@@ -426,8 +426,8 @@ Array.from(bookLibrary).forEach((item) => {
 	addBookCard(card);
 });
 
-// for (let i = 0; i < 8; i++)
-// 	addBookToLibrary();
+for (let i = 0; i < 1; i++)
+	addBookToLibrary();
 
 
 

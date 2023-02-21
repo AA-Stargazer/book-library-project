@@ -6,6 +6,8 @@
  * * * or just https://www.w3schools.com/cssref/css3_pr_background-size.php and search for text:
  * * * * Here we have two background images. We specify the size of the first background image with "contain", and the second background-image with "cover":
  * * * * * (to understand that turning border background. A good start I think...
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Text/Wrapping_Text
+ *
  *
  *
  */
@@ -204,6 +206,7 @@ body > div {
 }
 .add-button-sub-parent:hover {
 	font-size: 0.4cm;
+	cursor: pointer;
 }
 .add-button {
 	width: 100%;
@@ -229,7 +232,7 @@ body > div {
 	color: rgb(255, 255, 255, 0.6);
 }
 .add-button a:hover {
-	cursor: default;
+	cursor: pointer;
 }
 .add-button a:active {
 	color: rgb(255, 255, 255, 0.8);
@@ -408,14 +411,9 @@ textarea {
 	position: relative;
 	display: grid;
 }
-.face-parent {
-}
-.face-parent > div {
-	position: absolute;
-}
 .face {
-	width: 100% - 0.5cm;
-	height: 100% - 0.5cm;
+	width: 100%;
+	height: 100%;
 
 	display: grid;
 	gap: 0.5cm;
@@ -427,6 +425,10 @@ textarea {
 	display: grid;
 	grid-template-columns: auto auto;
 	gap: 0.5cm;
+
+	word-break: break-all;
+	overflow: scroll;
+
 }
 .read div:nth-child(2) {
 	/*
@@ -440,6 +442,15 @@ textarea {
 .read div:nth-child(2):active {
 	cursor: none;
 }
+.short-info {
+	display: grid;
+	grid-template-columns: auto;
+	grid-template-rows: auto auto;
+	
+}
+
+
+
 
 .card-buttons-parent {
 	width: 100%;
